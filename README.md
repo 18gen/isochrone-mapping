@@ -1,80 +1,72 @@
-# アイソクロン面マップ
+<div align="center">
 
+# 🚗🚶‍♂️🚃 面マップ（アイソクロン）  
+
+**Isochrone Mapping – Time-Based Accessibility**
+<br />
+<sub>
+  <img src="https://img.shields.io/badge/Next.js-black?style=flat-square&logo=next.js" />
+  <img src="https://img.shields.io/badge/TypeScript-blue?style=flat-square&logo=typescript" />
+  <img src="https://img.shields.io/badge/Mapbox-blueviolet?style=flat-square&logo=mapbox" />
+</sub>
+
+🚀 <b>[デモはこちら！](https://isochrone-mapping.vercel.app/)</b>
+</div>
 <img width="1010" height="676" alt="Screenshot" src="resource/doc/demo.png" />
+</div>
 
 ---
 
-## 🚀 デモ
+## 概要: 「今ここから、**何分以内**にどこまで行ける？」  
+**面マップ・Isochrone Mapping**は、出発地点から“○分以内に到達できるエリア”を直感的にマップ上へ描画するWebツールです。
 
-👉 [実際に使ってみる（isochrone-mapping.vercel.app）](https://isochrone-mapping.vercel.app/)
+> **Isochrone（アイソクロン）とは？**  
+> 出発点から一定時間以内で到達できる範囲を示す線・面のこと。  
+> 例：**「駅から徒歩15分圏」「車で30分圏内」** など。
 
----
-
-## 概要
-
-このアプリは、地図上で指定した出発地点から「○分以内に到達できる範囲（到達圏）」＝**Isochrone（アイソクロン）** を可視化するWebツールです。
-
-- **Isochrone（アイソクロン）とは？**  
-  “出発点から一定時間以内に到達できるエリア”を示す線や範囲のことです。  
-  例：「駅から徒歩15分圏」「車で30分以内に行けるエリア」など。
-
-- 本アプリは [Mapbox Isochrone API](https://docs.mapbox.com/api/navigation/isochrone/) および  
-  [OpenRouteService Isochrone API](https://openrouteservice.org/dev/#/api-docs/v2/isochrones) を利用し、  
-  交通手段や時間を指定するだけで自動的にそのエリアを地図上に描画します。
-
-車・徒歩・公共交通機関それぞれの交通手段に対応し、複数の到達圏を重ねて表示することもできます。
-
-- **React (Next.js) & TypeScript**
-- **Mapbox API・OpenRouteService APIを利用**
-- 日本語インターフェース
+MapboxやOpenRouteServiceのAPIを使い、**交通手段**（車・徒歩・公共交通）ごとに最適な到達圏を**ワンクリックで表示**できます。
+重ね合わせもOK！
 
 ---
 
 ## 主な機能
 
-- 住所検索または地図クリックで出発地点を指定
-- 徒歩・車・公共交通機関を選択可能
-- 5〜120分の間で時間を指定して到達圏を追加
-- 複数の到達圏を色分け＆アイコン付きで表示
-- 各到達圏の削除や一括クリアが可能
+- 🔎 **住所検索・地図クリック**で出発地点指定
+- 🚶‍♂️🚗 **徒歩・車**の切り替え（🚃公共交通機関は開発中）
+- ⏱️ **5～60分**の任意時間で到達圏生成
+- 🎨 **色分け＆アイコン付き**で複数表示
+- ❌ **ワンクリック削除 & 一括クリア**
 
 ---
 
-## セットアップ方法
+## セットアップ
 
-1. **リポジトリをクローン**
+### 1. リポジトリをクローン
+```
+git clone git@github.com:18gen/isochrone-mapping.git
+cd isochrone-mapping
+```
 
-    ```bash
-    git clone git@github.com:18gen/isochrone-mapping.git
-    cd isochrone-mapping
-    ```
+### 2. 依存パッケージのインストール
+```
+npm install
+```
 
-2. **依存パッケージのインストール**
+### 3. **APIキーの取得 & 設定**
+- [Mapbox公式サイト](https://account.mapbox.com/) でAPIトークンを発行
+- [OpenRouteService公式サイト](https://openrouteservice.org/sign-up/) でAPIキーを取得
 
-    ```bash
-    npm install
-    ```
-
-3. **APIキーの取得 & 設定**
-
-    - [Mapbox公式サイト](https://account.mapbox.com/) でAPIトークンを発行
-    - [OpenRouteService公式サイト](https://openrouteservice.org/sign-up/) でAPIキーを取得
-
-    プロジェクト直下に `.env.local` を作成し、以下を記入
-
-    ```
-    NEXT_PUBLIC_MAPBOX_TOKEN=あなたのMapboxトークン
-    MAPBOX_ACCESS_TOKEN=あなたのMapboxトークン（同上）
-    OPENROUTE_SERVICE_KEY=あなたのOpenRouteServiceキー
-    ```
-
-4. **アプリの起動**
-
-    ```bash
-    npm run dev
-    ```
-
-5. **`http://localhost:3000` にアクセス**
+プロジェクト直下に `.env.local` を作成し、以下を記入
+```
+NEXT_PUBLIC_MAPBOX_TOKEN=あなたのMapboxトークン
+MAPBOX_ACCESS_TOKEN=あなたのMapboxトークン（同上）
+OPENROUTE_SERVICE_KEY=あなたのOpenRouteServiceキー
+```
+### 4. **アプリの起動**
+```bash
+npm run dev
+```
+`http://localhost:3000` にアクセス
 
 ---
 
@@ -87,13 +79,6 @@
 - Tailwind CSS
 - Mapbox Isochrone API
 - OpenRouteService Isochrone API
-
----
-
-## カスタマイズ例
-
-- アイコンや配色は `/lib/constants.ts` で編集できます
-- 独自の交通手段や到達圏ロジックを追加可能
 
 ---
 
