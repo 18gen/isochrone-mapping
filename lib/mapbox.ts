@@ -14,11 +14,30 @@ export const initializeMap = (container: HTMLElement, accessToken: string) => {
   });
 };
 
-export const addMarker = (map: mapboxgl.Map, lng: number, lat: number, color: string = '#FF0000') => {
-  const marker = new mapboxgl.Marker({ color })
+export const addMarker = (
+  map: mapboxgl.Map,
+  lng: number,
+  lat: number,
+  _color: string = '#FF0000', // keep signature, but no border/bg
+  iconHTML?: string
+) => {
+  const el = document.createElement('div');
+  el.style.width = '32px';
+  el.style.height = '32px';
+  el.style.display = 'flex';
+  el.style.alignItems = 'center';
+  el.style.justifyContent = 'center';
+  el.style.fontSize = '28px'; // bigger icon!
+  el.style.background = 'none'; // no bg
+  el.style.border = 'none';    // no border
+  el.style.boxShadow = 'none'; // no shadow
+  el.style.padding = '0';      // tight
+  el.innerHTML = iconHTML || '<span style="color: #FF0000;">&#x1F4CD;</span>'; // default pin icon
+
+  const marker = new mapboxgl.Marker({ element: el })
     .setLngLat([lng, lat])
     .addTo(map);
-  
+
   return marker;
 };
 

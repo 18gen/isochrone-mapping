@@ -4,6 +4,7 @@ import { useEffect, useRef, useMemo } from 'react';
 import mapboxgl from 'mapbox-gl';
 import { initializeMap, addMarker, addIsochroneLayer, removeIsochroneLayer } from '@/lib/mapbox';
 import { Location, IsochroneData } from '@/types';
+import { TRANSPORTATION_MODES } from '@/lib/constants';
 
 interface MapComponentProps {
   onLocationSelect: (location: Location) => void;
@@ -15,9 +16,9 @@ export default function MapComponent({ onLocationSelect, isochrones, currentLoca
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef<mapboxgl.Marker[]>([]);
+  const isochroneMarkersRef = useRef<mapboxgl.Marker[]>([]);
   const currentMarkerRef = useRef<mapboxgl.Marker | null>(null);
 
-  
   // Memoize the token to prevent re-renders
   const mapboxToken = useMemo(() => {
     return process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
@@ -58,7 +59,7 @@ export default function MapComponent({ onLocationSelect, isochrones, currentLoca
       currentMarkerRef.current.remove();
     }
 
-    // Add new marker at current location
+    // Add new marker at current location (red color, no icon)
     const marker = addMarker(map, currentLocation.lng, currentLocation.lat, '#FF0000');
     currentMarkerRef.current = marker;
 
@@ -99,6 +100,31 @@ export default function MapComponent({ onLocationSelect, isochrones, currentLoca
         addIsochroneLayer(map, isochrone.id, isochrone.polygon, isochrone.color);
       });
     }
+  }, [isochrones]);
+
+  // Show markers for all isochrone origins
+  useEffect(() => {
+    if (!mapRef.current) return;
+    const map = mapRef.current;
+
+    // Remove old isochrone markers
+    isochroneMarkersRef.current.forEach(marker => marker.remove());
+    isochroneMarkersRef.current = [];
+
+    isochrones.forEach((isochrone) => {
+      const { lat, lng } = isochrone.params.location;
+      const modeObj = TRANSPORTATION_MODES.find(m => m.value === isochrone.params.mode);
+      const icon = modeObj?.icon || '📍';
+      // Add marker with color and emoji icon
+      const marker = addMarker(map, lng, lat, isochrone.color, icon);
+      isochroneMarkersRef.current.push(marker);
+    });
+
+    // Clean up on unmount
+    return () => {
+      isochroneMarkersRef.current.forEach(marker => marker.remove());
+      isochroneMarkersRef.current = [];
+    };
   }, [isochrones]);
 
   if (!mapboxToken) {
