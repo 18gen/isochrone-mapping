@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚗🚶‍♂️🚃 面マップ（アイソクロン）  
+# 🚗🚶‍♂️🚃 面まっぷ（アイソクロン）  
 
 **Isochrone Mapping – Time-Based Accessibility**
 <br />

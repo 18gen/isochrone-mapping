@@ -6,8 +6,8 @@ import { Toaster } from '@/components/ui/sonner';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: '到達圏マッパー - 移動時間可視化ツール',
-  description: '異なる交通手段を使用して、指定された移動時間内で到達可能なエリアを可視化します',
+  title: '面まっぷ - 到達圏可視化ツール',
+  description: '指定した時間内で到達できるエリアを地図上に表示します',
 };
 
 export default function RootLayout({
