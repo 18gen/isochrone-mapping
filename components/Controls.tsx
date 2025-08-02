@@ -67,13 +67,13 @@ export default function Controls({
   const handleAddIsochrone = () => {
     if (!currentLocation) return;
     const timeValue = selectedTime[0];
-    if (timeValue <= 0 || timeValue > 120) return;
+    if (timeValue <= 0 || timeValue > 60) return;
     onAddIsochrone({ location: currentLocation, time: timeValue, mode: selectedMode });
   };
 
   const isValidTime = () => {
     const time = selectedTime[0];
-    return time > 0 && time <= 120;
+    return time > 0 && time <= 60;
   };
 
   const formatTime = (minutes: number) => {
@@ -236,14 +236,14 @@ export default function Controls({
                   <Slider
                     value={selectedTime}
                     onValueChange={setSelectedTime}
-                    max={120}
+                    max={60}
                     min={5}
                     step={5}
                     className="w-full"
                   />
                   <div className="flex justify-between text-xs text-gray-400 mt-1">
                     <span>5分</span>
-                    <span>2時間</span>
+                    <span>1時間</span>
                   </div>
                   <div className="flex gap-2 mt-1">
                     {[15, 30, 45, 60].map(time => (
