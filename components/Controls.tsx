@@ -106,8 +106,8 @@ export default function Controls({
 
       {/* Main controls */}
       {isOpen && (
-        <div className="absolute top-4 left-4 z-30 w-[92vw] max-w-[300px] h-[90vh] rounded-2xl overflow-hidden shadow-2xl bg-white/95 border border-blue-100 flex flex-col">
-          <Card className="flex flex-col h-full bg-transparent shadow-none border-0">
+        <div className="absolute top-4 left-4 z-30 w-[92vw] max-w-[300px] max-h-[90vh] rounded-2xl overflow-hidden shadow-2xl bg-white/95 border border-blue-100 flex flex-col">
+          <Card className="flex flex-col h-full max-h-[90vh] bg-transparent shadow-none border-0">
             {/* Header - fixed at top */}
             <CardHeader className="pb-2 pt-4 px-3 flex-shrink-0 bg-white/95 border-b border-blue-100">
               <div className="flex items-center justify-between">
